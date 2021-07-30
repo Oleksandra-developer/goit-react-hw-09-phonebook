@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import React, { useState, useCallback } from "react";
+import { connect, useSelector, useDispatch } from "react-redux";
 import styles from "./Form.module.css";
 import PropTypes from "prop-types";
-import { addContact } from "../redux/phonebook/phonebook-operation";
+import { getAllContacts } from "../../redux/phonebook/contacts-selectors";
+import { addContact } from "../../redux/phonebook/phonebook-operation";
 
-function Form({ onSubmit }) {
+function Form() {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-
+  const contacts = useSelector(getAllContacts);
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
     // setName(e.target.value);
@@ -28,12 +30,17 @@ function Form({ onSubmit }) {
     setNumber("");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit({ name, number });
-    console.log("Submit success!");
-    reset();
-  };
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      const names = contacts.map((contact) => contact.name);
+      names.includes(name)
+        ? alert(`${name}  is alredy in contacts`)
+        : dispatch(addContact({ name, number }));
+      reset();
+    },
+    [dispatch, contacts, name, number]
+  );
 
   return (
     <form className={styles.addForm} onSubmit={handleSubmit}>

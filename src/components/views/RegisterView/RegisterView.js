@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { authOperations } from "../../redux/auth";
+import { authOperations } from "../../../redux/auth";
 import styles from "./RegisterView.module.scss";
 
 const RegisterView = ({ onSubmit }) => {

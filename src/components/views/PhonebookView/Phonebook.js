@@ -4,8 +4,8 @@ import styles from "../../container.module.css";
 import ContactsList from "../../ContactList";
 import Filter from "../../Filter";
 import { connect } from "react-redux";
-import { getLoading } from "../../redux/phonebook/contacts-selectors";
-import { fetchContacts } from "../../redux/phonebook/phonebook-operation";
+import { getLoading } from "../../../redux/phonebook/contacts-selectors";
+import { fetchContacts } from "../../../redux/phonebook/phonebook-operation";
 
 const PhonebookView = ({ fetchContacts }, { isLoadingContacts }) => {
   useEffect(() => {

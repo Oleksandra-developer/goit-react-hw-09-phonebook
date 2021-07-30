@@ -1,33 +1,31 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { authSelectors } from "../redux/auth";
+import { authSelectors } from "../../redux/auth";
 import styles from "../AuthNav/AuthNav.module.scss";
 
-const Navigation = ({ isAuthenticated }) => (
-  <nav>
-    <NavLink
-      to="/"
-      exact
-      className={styles.link}
-      activeClassName={styles.activeLink}
-    >
-      Homepage
-    </NavLink>
-    {isAuthenticated && (
+export default function Navigation() {
+  const isLogged = useSelector(authSelectors.getIsAuthenticatad);
+  return (
+    <nav>
       <NavLink
-        to="/contacts"
+        to="/"
         exact
         className={styles.link}
         activeClassName={styles.activeLink}
       >
-        Contacts
+        Homepage
       </NavLink>
-    )}
-  </nav>
-);
-const mapStateToProps = (state) => ({
-  isAuthenticated: authSelectors.getIsAuthenticatad(state),
-});
-
-export default connect(mapStateToProps, null)(Navigation);
+      {isLogged && (
+        <NavLink
+          to="/contacts"
+          exact
+          className={styles.link}
+          activeClassName={styles.activeLink}
+        >
+          Contacts
+        </NavLink>
+      )}
+    </nav>
+  );
+}

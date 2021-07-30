@@ -20,6 +20,7 @@ export const fetchContacts = () => (dispatch) => {
     .then(({ data }) => dispatch(fetchContactsSuccess(data)))
     .catch((error) => dispatch(fetchContactsError(error.message)));
 };
+
 export const addContact =
   ({ name, number }) =>
   (dispatch) => {

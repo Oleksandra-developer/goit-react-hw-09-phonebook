@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import authOperations from "../../redux/auth/auth-operations";
+import authOperations from "../../../redux/auth/auth-operations";
 import styles from "../RegisterView/RegisterView.module.scss";
 
 function LoginView({ onLogin }) {
