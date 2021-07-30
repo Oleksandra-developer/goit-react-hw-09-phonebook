@@ -64,4 +64,5 @@ const getCurrentUser = () => async (dispatch, getState) => {
     dispatch(authActions.getCurrentUserError(error.message));
   }
 };
+// eslint-disable-next-line import/no-anonymous-default-export
 export default { register, logIn, logOut, getCurrentUser };

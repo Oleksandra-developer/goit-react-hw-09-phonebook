@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import authOperations from "../../../redux/auth/auth-operations";
 import styles from "../RegisterView/RegisterView.module.scss";
 
-function LoginView({ onLogin }) {
+export default function LoginView() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const onLogin = (data) => dispatch(authOperations.logIn(data));
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,8 +70,3 @@ function LoginView({ onLogin }) {
     </div>
   );
 }
-
-const mapDispatchToProps = {
-  onLogin: authOperations.logIn,
-};
-export default connect(null, mapDispatchToProps)(LoginView);

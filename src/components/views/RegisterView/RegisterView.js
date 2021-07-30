@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { authOperations } from "../../../redux/auth";
 import styles from "./RegisterView.module.scss";
 
-const RegisterView = ({ onSubmit }) => {
+export default function RegisterView() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const onSubmit = (data) => dispatch(authOperations.register(data));
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,9 +77,6 @@ const RegisterView = ({ onSubmit }) => {
       </form>
     </>
   );
-};
+}
 
-const mapDispatchToProps = {
-  onSubmit: authOperations.register,
-};
-export default connect(null, mapDispatchToProps)(RegisterView);
+//

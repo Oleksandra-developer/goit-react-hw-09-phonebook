@@ -3,14 +3,16 @@ import Form from "../../Form";
 import styles from "../../container.module.css";
 import ContactsList from "../../ContactList";
 import Filter from "../../Filter";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getLoading } from "../../../redux/phonebook/contacts-selectors";
 import { fetchContacts } from "../../../redux/phonebook/phonebook-operation";
 
-const PhonebookView = ({ fetchContacts }, { isLoadingContacts }) => {
+export default function PhonebookView() {
+  const dispatch = useDispatch();
+  const isLoadingContacts = useSelector(getLoading);
   useEffect(() => {
-    fetchContacts();
-  }, [fetchContacts]);
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <section className={styles.container}>
@@ -22,12 +24,4 @@ const PhonebookView = ({ fetchContacts }, { isLoadingContacts }) => {
       <ContactsList />
     </section>
   );
-};
-
-const mapStateToProps = (state) => ({
-  isLoadingContacts: getLoading(state),
-});
-const mapDispatchToProps = (dispatch) => ({
-  fetchContacts: () => dispatch(fetchContacts()),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(PhonebookView);
+}

@@ -1,15 +1,16 @@
 import React, { useState, useCallback } from "react";
-import { connect, useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./Form.module.css";
 import PropTypes from "prop-types";
 import { getAllContacts } from "../../redux/phonebook/contacts-selectors";
 import { addContact } from "../../redux/phonebook/phonebook-operation";
 
-function Form() {
+export default function Form() {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const contacts = useSelector(getAllContacts);
   const dispatch = useDispatch();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     // setName(e.target.value);
@@ -77,10 +78,3 @@ Form.propTypes = {
   name: PropTypes.string,
   number: PropTypes.string,
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit: ({ name, number }) => {
-    dispatch(addContact({ name, number }));
-  },
-});
-export default connect(null, mapDispatchToProps)(Form);
